@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.khang.photogalleryapp.MainMenu">
+
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search for Photos"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="92dp"
+        app:layout_constraintTop_toBottomOf="@+id/btnPhotoGall"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="91dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="163dp"
+        android:layout_height="53dp"
+        android:text="Add a Photo"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="@+id/btnSearch"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="68dp"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="67dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnPhotoGall" />
+
+    <Button
+        android:id="@+id/btnPhotoGall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Photo Gallery"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        android:layout_marginStart="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/btnAdd"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="14dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="53dp"
+        android:text="Welcome to Khang's Dream Blog. Here you can find photos from my journey around the world. I am just a regular worker who just wants to show his passion of travelling to everyone here! "
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        android:layout_marginStart="11dp"
+        android:layout_marginEnd="11dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="125dp"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="11dp"
+        android:layout_marginRight="11dp" />
+    
+</android.support.constraint.ConstraintLayout>
