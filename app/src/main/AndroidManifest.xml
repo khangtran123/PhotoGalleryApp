@@ -20,7 +20,8 @@
         <activity android:name=".PhotoEdit" />
         <activity android:name=".SplashUploaded" />
         <activity android:name=".AdvancedSearch" />
-        <activity android:name=".Gallery"></activity>
+        <activity android:name=".Gallery" />
+        <activity android:name=".FunctionNotCreated"></activity>
     </application>
 
 </manifest>
