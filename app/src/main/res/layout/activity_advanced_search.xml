@@ -12,23 +12,10 @@
         android:layout_height="wrap_content"
         android:text="StartDate:"
         tools:layout_constraintTop_creator="1"
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintTop_toBottomOf="@+id/chkDate"
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="@+id/chkDate" />
-
-    <Button
-        android:id="@+id/btnStartDate"
-        android:layout_width="129dp"
-        android:layout_height="48dp"
-        android:text="Choose Date"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintRight_toRightOf="@+id/txtStart"
-        android:layout_marginTop="1dp"
-        app:layout_constraintTop_toBottomOf="@+id/txtStart"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toRightOf="@+id/txtStart" />
 
     <TextView
         android:id="@+id/textView4"
@@ -54,7 +41,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="35dp"
         tools:layout_constraintTop_creator="1"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="81dp"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -62,25 +49,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="EndDate:"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toTopOf="@+id/btnEndDate"
-        android:layout_marginStart="63dp"
+        android:layout_marginStart="35dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/txtEndDate"
+        tools:layout_constraintBaseline_creator="1"
         tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toRightOf="@+id/btnStartDate"
-        android:layout_marginLeft="63dp" />
-
-    <Button
-        android:id="@+id/btnEndDate"
-        android:layout_width="131dp"
-        android:layout_height="48dp"
-        android:text="Choose Date"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="@+id/btnStartDate"
-        app:layout_constraintRight_toRightOf="@+id/txtEnd"
-        tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintLeft_toRightOf="@+id/txtEnd" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="35dp" />
 
     <TextView
         android:id="@+id/textView5"
@@ -187,5 +161,32 @@
         android:layout_marginBottom="3dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="16dp" />
+
+    <EditText
+        android:id="@+id/txtStartDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Select Date..."
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="@+id/txtEndDate"
+        app:layout_constraintBaseline_toBaselineOf="@+id/txtStart"
+        tools:layout_constraintBaseline_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/txtEndDate" />
+
+    <EditText
+        android:id="@+id/txtEndDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Select Date..."
+        tools:layout_constraintTop_creator="1"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/txtStartDate"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toRightOf="@+id/txtEnd"
+        android:layout_marginLeft="19dp" />
 
 </android.support.constraint.ConstraintLayout>
