@@ -18,6 +18,7 @@ import org.w3c.dom.Text;
 import java.util.Calendar;
 
 public class AdvancedSearch extends AppCompatActivity {
+    public final static String EXTRA_MESSAGE = "com.example.khang.photogalleryapp";
     int currentYear, currentMonth, currentDay;
     static final int DATE_DIALOG_ID = 0;
     Button btnStartDate, btnEndDate, btnSearch, btnMenu;
@@ -54,7 +55,7 @@ public class AdvancedSearch extends AppCompatActivity {
                 //This is the dialog box that pops up to allow user to pick a date
                 datePickerDialog = new DatePickerDialog(AdvancedSearch.this, new DatePickerDialog.OnDateSetListener(){
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth){
-                        startDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                        startDate.setText((monthOfYear + 1) + "-" + dayOfMonth + "-" + year);
                     }
                 }, year, month, day);
                 datePickerDialog.show();
@@ -72,7 +73,7 @@ public class AdvancedSearch extends AppCompatActivity {
                 //This is the dialog box that pops up to allow user to pick a date
                 datePickerDialog = new DatePickerDialog(AdvancedSearch.this, new DatePickerDialog.OnDateSetListener(){
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth){
-                        endDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                        endDate.setText((monthOfYear + 1) + "-" + dayOfMonth + "-" + year);
                     }
                 }, year, month, day);
                 datePickerDialog.show();
@@ -82,7 +83,13 @@ public class AdvancedSearch extends AppCompatActivity {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AdvancedSearch.this, Gallery.class));
+                Intent intent = new Intent(AdvancedSearch.this, Gallery.class);
+                String getStartD = startDate.getText().toString();
+                String getEndD = endDate.getText().toString();
+                //String message = "Hello World";
+                intent.putExtra("STARTDATE", getStartD);
+                intent.putExtra("ENDDATE", getEndD);
+                startActivity(intent);
             }
         });
 
