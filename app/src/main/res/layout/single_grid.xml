@@ -7,7 +7,7 @@
 
     <ImageView
         android:id="@+id/imgV"
-        android:layout_width="100dp"
+        android:layout_width="150dp"
         android:layout_height="100dp"
         android:layout_alignTop="@+id/imgV"
         android:layout_centerHorizontal="true"

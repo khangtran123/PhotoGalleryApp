@@ -2,12 +2,14 @@ package com.example.khang.photogalleryapp;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,26 +37,13 @@ public class Gallery extends AppCompatActivity {
     private int WRITE_STORAGE_PERMISSION_CODE = 24;
     private File root;
     private ArrayList<File> imgList = new ArrayList<File>();
-
+    ExifInterface intf = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
         Button btnMenu = (Button) findViewById(R.id.btnMainMenu);
-
-        /*
-        Using Lint Testing: Right click /app --> Analyze --> Inspect Code
-
-            //This test is to get the right permission for SD external
-
-
-
-            public void useAppContext() thrown Exception {
-                Context appContext = InstrumentationRegistry.getTargetContext();
-            }
-
-         */
 
         //storage directory: /storage/emulated/0
         //Environment.getExternalStorageDirectory() -- Return the primary shared/external storage directory
@@ -72,16 +61,28 @@ public class Gallery extends AppCompatActivity {
         else
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_STORAGE_PERMISSION_CODE);
 
-
         //list = imageReader(Environment.getExternalStorageDirectory());
-        //File sdDir = new File(Environment.getExternalStorageDirectory());
-        File imageDirectory = new File(Environment.getExternalStorageDirectory().getPath().toString() +
-                "/document/1BE6-1F15:Picture");
+        //File sdDir = new File(Environment.getExternalStorageDirectory())
+        String pathtoimage = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath();
+        //String pathtoimage = Environment.getFilesDir();
+        //File imageDirectory = new File(Environment.getExternalStorageDirectory().getPath().toString() + "/document");
+        File imageDirectory = new File(pathtoimage);
+        System.out.println(imageDirectory);
         //Log.d(imageDirectory.toString(),"dfdsf");
+        //list = listImgs(imageDirectory);
         listImgs(imageDirectory);
         gv = (GridView) findViewById(R.id.gridView);
         gv.setAdapter( new GridAdapter() );
+        gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                startActivity( new Intent(getApplicationContext(), ViewImage.class).putExtra("img",imgList.get(position).toString()));
+            }
+        });
 
+        /*for(int i=0; i<imgList.size(); i++){
+            String picDate = intf.getAttribute(ExifInterface.TAG_DATETIME);
+        } */
 
         //This just shows us the date picked from advanced search
         startD = getIntent().getStringExtra("STARTDATE");
@@ -121,6 +122,7 @@ public class Gallery extends AppCompatActivity {
 
         @Override
         public int getCount() {
+            System.out.println(imgList);
             return imgList.size();
         }
 
@@ -154,9 +156,10 @@ public class Gallery extends AppCompatActivity {
 
     public ArrayList<File> listImgs(File dir) {
 
-        ArrayList<File> a = new ArrayList<>();
+        ArrayList<File> a = new ArrayList<File>();
 
         File[] img = dir.listFiles(); //lists all the files that belong in the directory of path given
+
         for(int i = 0; i < img.length; i++){
             //isDirectory is a boolean function that checks to see if this specific file is a directory
             //if it is a directory, iterate through all files and add to the array
@@ -164,11 +167,16 @@ public class Gallery extends AppCompatActivity {
                 imgList.addAll(listImgs(img[i]));
                 //a.addAll(imageReader(img[i]));
             }
-            else{
+            else if(img[i].getName().startsWith("9-24-2017") || img[i].getName().endsWith("9-25-2017")){
+                imgList.add(img[i]);
+            }
+            else if(img[i].getName().endsWith(".jpg") || img[i].getName().endsWith(".JPG")){
                 //img[i].getName().startsWith("9-24-2017") || img[i].getName().endsWith("9-25-2017
-                if(img[i].getName().endsWith(".jpg") || img[i].getName().endsWith(".JPG")){
+                //if(img[i].getName().endsWith(".jpg") || img[i].getName().endsWith(".JPG")){
                     imgList.add(img[i]);
-                }
+            }
+            else{
+                System.out.println("No photos");
             }
         }
         return a;
