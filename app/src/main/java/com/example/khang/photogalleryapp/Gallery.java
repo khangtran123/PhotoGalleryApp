@@ -122,12 +122,12 @@ public class Gallery extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            System.out.println(imgList);
             return imgList.size();
         }
 
         @Override
         public Object getItem(int position) {
+            //System.out.println("This gets the position: " + imgList.get(position).toString());
             return imgList.get(position);
         }
 
@@ -182,23 +182,4 @@ public class Gallery extends AppCompatActivity {
         return a;
     }
 
-    ArrayList<File> imageReader(File root){
-        ArrayList<File> a = new ArrayList<>();
-        //String filepath = root + "/Picture";
-        File[] img = root.listFiles(); //lists all the files that belong in the directory of path given
-        for(int i = 0; i < img.length; i++){
-            //isDirectory is a boolean function that checks to see if this specific file is a directory
-            //if it is a directory, iterate through all files and add to the array
-            if(img[i].isDirectory()){
-                a.addAll(imageReader(img[i]));
-            }
-            else{
-                //img[i].getName().startsWith("9-24-2017") || img[i].getName().endsWith("9-25-2017
-                if(img[i].getName().endsWith(".jpg") || img[i].getName().endsWith(".JPG") ){
-                    a.add(img[i]);
-                }
-            }
-        }
-        return a;
-    }
 }

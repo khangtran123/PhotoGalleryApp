@@ -12,4 +12,5 @@
         android:layout_alignTop="@+id/imgV"
         android:layout_centerHorizontal="true"
         app:srcCompat="@drawable/common_full_open_on_phone" />
+
 </LinearLayout>
