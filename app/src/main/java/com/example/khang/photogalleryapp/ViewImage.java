@@ -46,16 +46,23 @@ public class ViewImage extends AppCompatActivity {
         String exif = "Absolute Path: " + imgFile;
         try{
             ExifInterface exifInterface = new ExifInterface(imgFile);
-            exif += "\nDate Taken: " + exifInterface.getAttribute(ExifInterface.TAG_DATETIME_DIGITIZED);
-            exif += "\nDate Taken: " + exifInterface.getAttribute(ExifInterface.TAG_DATETIME_ORIGINAL);
-            exif += "\nPhoto Description: " + exifInterface.getAttribute(ExifInterface.TAG_IMAGE_DESCRIPTION);
-            exif += "\nGPS Coordinates";
-            exif += "\nGPS Tag Date Stamp: " + exifInterface.getAttribute(ExifInterface.TAG_GPS_DATESTAMP);
-            exif += "\nGPS Tag Time Stamp: " + exifInterface.getAttribute(ExifInterface.TAG_GPS_TIMESTAMP);
-            exif += "\nGPS Tag Latitude: " + exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE);
-            exif += "\nGPS Tag Longitude: " + exifInterface.getAttribute(ExifInterface.TAG_GPS_LONGITUDE);
+            if (exifInterface != null){
+                exif += "\nDate Taken: " + exifInterface.getAttribute(ExifInterface.TAG_DATETIME);
+                exif += "\nPhoto Description: " + exifInterface.getAttribute(ExifInterface.TAG_IMAGE_DESCRIPTION);
+                exif += "\n";
+                exif += "\nGPS Coordinates";
+                exif += "\nGPS Tag Date Stamp: " + exifInterface.getAttribute(ExifInterface.TAG_GPS_DATESTAMP);
+                exif += "\nGPS Tag Time Stamp: " + exifInterface.getAttribute(ExifInterface.TAG_GPS_TIMESTAMP);
+                exif += "\nGPS Tag Latitude: " + exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE);
+                exif += "\nGPS Tag Latitude Reference: " + exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE_REF);
+                exif += "\nGPS Tag Longitude: " + exifInterface.getAttribute(ExifInterface.TAG_GPS_LONGITUDE);
+                exif += "\nGPS Tag Longitude Reference: " + exifInterface.getAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF);
 
-            Toast.makeText(ViewImage.this, "Finished", Toast.LENGTH_LONG).show();
+                Toast.makeText(ViewImage.this, "Finished", Toast.LENGTH_LONG).show();
+            } else{
+                System.out.println("Exif is null");
+            }
+
         }
         catch (IOException e){
             e.printStackTrace();

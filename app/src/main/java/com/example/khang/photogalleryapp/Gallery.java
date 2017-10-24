@@ -61,15 +61,11 @@ public class Gallery extends AppCompatActivity {
         else
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_STORAGE_PERMISSION_CODE);
 
-        //list = imageReader(Environment.getExternalStorageDirectory());
-        //File sdDir = new File(Environment.getExternalStorageDirectory())
-        String pathtoimage = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath();
-        //String pathtoimage = Environment.getFilesDir();
+        //String pathtoimage = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath();
+        String pathtoimage = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath() + "/Camera";
         //File imageDirectory = new File(Environment.getExternalStorageDirectory().getPath().toString() + "/document");
         File imageDirectory = new File(pathtoimage);
         System.out.println(imageDirectory);
-        //Log.d(imageDirectory.toString(),"dfdsf");
-        //list = listImgs(imageDirectory);
         listImgs(imageDirectory);
         gv = (GridView) findViewById(R.id.gridView);
         gv.setAdapter( new GridAdapter() );
@@ -80,16 +76,10 @@ public class Gallery extends AppCompatActivity {
             }
         });
 
-        /*for(int i=0; i<imgList.size(); i++){
-            String picDate = intf.getAttribute(ExifInterface.TAG_DATETIME);
-        } */
-
         //This just shows us the date picked from advanced search
         startD = getIntent().getStringExtra("STARTDATE");
         endD = getIntent().getStringExtra("ENDDATE");
 
-        //startD = "9-24-2017";
-        //endD = "9-25-2017";
         //This redirects user back to the main menu
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,7 +117,7 @@ public class Gallery extends AppCompatActivity {
 
         @Override
         public Object getItem(int position) {
-            //System.out.println("This gets the position: " + imgList.get(position).toString());
+            System.out.println("This gets the absolute position: " + imgList.get(position).toString());
             return imgList.get(position);
         }
 
