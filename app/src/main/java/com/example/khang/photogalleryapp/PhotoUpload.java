@@ -34,7 +34,9 @@ public class PhotoUpload extends AppCompatActivity {
         btnTake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PhotoUpload.this, FunctionNotCreated.class));
+                //startActivity(new Intent(PhotoUpload.this, FunctionNotCreated.class));
+                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                startActivity(intent);
             }
         });
 
