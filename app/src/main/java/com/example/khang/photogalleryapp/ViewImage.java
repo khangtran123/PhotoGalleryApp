@@ -14,6 +14,9 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ViewImage extends AppCompatActivity {
     ImageView clickedImg;
@@ -35,7 +38,13 @@ public class ViewImage extends AppCompatActivity {
 
         //We now use Exif to get the GPS, and Date info for the picture
         Exif = (TextView) findViewById(R.id.txtExif);
-        Bitmap bm = BitmapFactory.decodeFile(f);
+
+        //this section requests the decoder to subsample the original image
+        //ie cut the image quality to minimize the memory usage
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 16;
+
+        Bitmap bm = BitmapFactory.decodeFile(f,options);
         clickedImg.setImageBitmap(bm);
         Exif.setText(ReadExif(f));
 
@@ -131,5 +140,5 @@ public class ViewImage extends AppCompatActivity {
     public boolean isValid(){
         return valid;
     }
-    
+
 }

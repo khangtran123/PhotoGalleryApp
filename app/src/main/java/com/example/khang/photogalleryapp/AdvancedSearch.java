@@ -23,7 +23,7 @@ public class AdvancedSearch extends AppCompatActivity {
     static final int DATE_DIALOG_ID = 0;
     Button btnStartDate, btnEndDate, btnSearch, btnMenu;
     CheckBox chkLocation, chkTimeframe, chkKeywrd;
-    EditText enterLocation, enterKeyword, startDate, endDate;
+    EditText enterLong, enterLat, enterKeyword, startDate, endDate;
     DatePickerDialog datePickerDialog;
 
     @Override
@@ -41,9 +41,11 @@ public class AdvancedSearch extends AppCompatActivity {
 
         chkLocation = (CheckBox) findViewById(R.id.chkLocation);
         chkKeywrd = (CheckBox) findViewById(R.id.chkKeyword);
-        enterLocation = (EditText) findViewById(R.id.txtLocation);
+        enterLong = (EditText) findViewById(R.id.txtLong);
+        enterLat = (EditText) findViewById(R.id.txtLat);
         enterKeyword = (EditText) findViewById(R.id.txtKeyword);
 
+        //exif Date format -> yyyy:mm:dd
         startDate.setOnClickListener(new View.OnClickListener(){
             //this gets the current date, month and year from calendar
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -55,7 +57,21 @@ public class AdvancedSearch extends AppCompatActivity {
                 //This is the dialog box that pops up to allow user to pick a date
                 datePickerDialog = new DatePickerDialog(AdvancedSearch.this, new DatePickerDialog.OnDateSetListener(){
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth){
-                        startDate.setText((monthOfYear + 1) + "-" + dayOfMonth + "-" + year);
+                        //startDate.setText((monthOfYear + 1) + ":" + dayOfMonth + ":" + year);
+                        //startDate.setText(year + ":" + (monthOfYear + 1) + ":" + dayOfMonth);
+                        if((monthOfYear + 1) < 10){
+                            if(dayOfMonth < 10) {
+                                startDate.setText(year + ":0" + (monthOfYear + 1) + ":0" + dayOfMonth);
+                            } else{
+                                startDate.setText(year + ":0" + (monthOfYear + 1) + ":" + dayOfMonth);
+                            }
+                        } else {
+                            if(dayOfMonth < 10) {
+                                startDate.setText(year + ":" + (monthOfYear + 1) + ":0" + dayOfMonth);
+                            }else {
+                                startDate.setText(year + ":" + (monthOfYear + 1) + ":" + dayOfMonth);
+                            }
+                        }
                     }
                 }, year, month, day);
                 datePickerDialog.show();
@@ -73,7 +89,19 @@ public class AdvancedSearch extends AppCompatActivity {
                 //This is the dialog box that pops up to allow user to pick a date
                 datePickerDialog = new DatePickerDialog(AdvancedSearch.this, new DatePickerDialog.OnDateSetListener(){
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth){
-                        endDate.setText((monthOfYear + 1) + "-" + dayOfMonth + "-" + year);
+                        if((monthOfYear + 1) < 10){
+                            if(dayOfMonth < 10) {
+                                endDate.setText(year + ":0" + (monthOfYear + 1) + ":0" + dayOfMonth);
+                            } else{
+                                endDate.setText(year + ":0" + (monthOfYear + 1) + ":" + dayOfMonth);
+                            }
+                        } else {
+                            if(dayOfMonth < 10) {
+                                endDate.setText(year + ":" + (monthOfYear + 1) + ":0" + dayOfMonth);
+                            }else {
+                                endDate.setText(year + ":" + (monthOfYear + 1) + ":" + dayOfMonth);
+                            }
+                        }
                     }
                 }, year, month, day);
                 datePickerDialog.show();
@@ -86,9 +114,14 @@ public class AdvancedSearch extends AppCompatActivity {
                 Intent intent = new Intent(AdvancedSearch.this, Gallery.class);
                 String getStartD = startDate.getText().toString();
                 String getEndD = endDate.getText().toString();
-                //String message = "Hello World";
+                String getLat = enterLat.getText().toString();
+                String getLong = enterLong.getText().toString();
+
                 intent.putExtra("STARTDATE", getStartD);
                 intent.putExtra("ENDDATE", getEndD);
+                intent.putExtra("LONGITUDE", getLong);
+                intent.putExtra("LATITUDE", getLat);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -96,7 +129,9 @@ public class AdvancedSearch extends AppCompatActivity {
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AdvancedSearch.this, MainMenu.class));
+                Intent intent = new Intent(AdvancedSearch.this, MainMenu.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             }
         });
     }
