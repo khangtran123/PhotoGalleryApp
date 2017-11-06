@@ -18,7 +18,7 @@ public class FunctionNotCreated extends AppCompatActivity {
             @Override
             public void run() {
                 finish();
-                startActivity(new Intent(FunctionNotCreated.this, PhotoUpload.class));
+                startActivity(new Intent(FunctionNotCreated.this, Gallery.class));
             }
         };
         Timer redirect = new Timer();

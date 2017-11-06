@@ -10,7 +10,7 @@
         android:id="@+id/textView8"
         android:layout_width="0dp"
         android:layout_height="149dp"
-        android:text="Function not Implemented Yet: You will be redirected back to the previous page!"
+        android:text="The Caption was Saved Successfully! Returning to the Gallery"
         android:textSize="30sp"
         tools:layout_constraintTop_creator="1"
         tools:layout_constraintRight_creator="1"

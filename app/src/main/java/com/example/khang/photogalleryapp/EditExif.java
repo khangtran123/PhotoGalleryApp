@@ -1,89 +1,64 @@
 package com.example.khang.photogalleryapp;
 
 import android.content.Intent;
-import android.net.Uri;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.ExifInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.media.ExifInterface;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.widget.Toast;
 
-import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-public class ViewImage extends AppCompatActivity {
-    ImageView clickedImg;
+public class EditExif extends AppCompatActivity {
+    Button btnSaveDesc;
+    EditText enterCaption;
     TextView Exif;
-    private boolean valid = false;
+    private String chosenImg;
     private Float Longitude, Latitude;
-    Button btnEditTag;
-    EditText enterDesc;
-    private String f;
-
+    private boolean valid = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_image);
+        setContentView(R.layout.activity_edit_exif);
 
-        //This is the button to edit the exif description tag
-        btnEditTag = (Button) findViewById(R.id.btnEdit);
-        btnEditTag.setVisibility(View.VISIBLE);
+        btnSaveDesc = (Button) findViewById(R.id.btnSave);
+        enterCaption = (EditText) findViewById(R.id.txtCaption);
 
         Intent i = getIntent();
         //File f = (File) i.getExtras().getParcelable("img");
-        f = getIntent().getStringExtra("img");
-        //System.out.println("This is the absolute path: " + f);
-        clickedImg = (ImageView) findViewById(R.id.imgClicked);
-        //clickedImg.setImageURI(Uri.parse(f));
+        chosenImg = getIntent().getStringExtra("IMGPATH");
 
-        //We now use Exif to get the GPS, and Date info for the picture
-        Exif = (TextView) findViewById(R.id.txtExif);
+        Exif = (TextView) findViewById(R.id.txtChosenExif);
 
         //this section requests the decoder to subsample the original image
         //ie cut the image quality to minimize the memory usage
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 16;
 
-        Bitmap bm = BitmapFactory.decodeFile(f,options);
-        clickedImg.setImageBitmap(bm);
-        Exif.setText(ReadExif(f));
+        Bitmap bm = BitmapFactory.decodeFile(chosenImg,options);
+        Exif.setText(ReadExif(chosenImg));
 
-        btnEditTag.setOnClickListener(new View.OnClickListener() {
+        btnSaveDesc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //enterDesc = (EditText) findViewById(R.id.txtDesc);
-                //enterDesc.setVisibility(View.VISIBLE);
-                /*
-                String getDesc = enterDesc.getText().toString();
-
+                String getCap = enterCaption.getText().toString();
                 try{
-                    ExifInterface exifInterface = new ExifInterface(f);
-                    exifInterface.setAttribute(ExifInterface.TAG_IMAGE_DESCRIPTION, getDesc);
-                    //now include a save button. once user clicks save, page refresh with new info
+                    ExifInterface exifInterface = new ExifInterface(chosenImg);
+                    exifInterface.setAttribute(ExifInterface.TAG_IMAGE_DESCRIPTION, getCap);
                     exifInterface.saveAttributes();
                 }
                 catch (IOException e){
                     e.printStackTrace();
-                    Toast.makeText(ViewImage.this, e.toString(), Toast.LENGTH_LONG).show();
-                } */
-                Intent intent = new Intent(ViewImage.this, EditExif.class);
-                intent.putExtra("IMGPATH", f);
+                }
+                Intent intent = new Intent(EditExif.this, FunctionNotCreated.class);
                 startActivity(intent);
             }
-         });
-        //imageFile is the absolute path to the image in String format
-        /*What we want is to create a session variable (Through intents) that sends the chosen image directory over
-           we grab that image path and pass that in as the String argument. */
+        });
     }
 
     String ReadExif(String imgFile){
@@ -133,7 +108,6 @@ public class ViewImage extends AppCompatActivity {
                 exif += "\nGPS Tag Latitude Reference: " + latRef;
                 exif += "\nGPS Tag Longitude: " + String.valueOf(Longitude);
                 exif += "\nGPS Tag Longitude Reference: " + longRef;
-                Toast.makeText(ViewImage.this, "Finished", Toast.LENGTH_LONG).show();
             } else{
                 System.out.println("Exif is null");
             }
@@ -141,7 +115,6 @@ public class ViewImage extends AppCompatActivity {
         }
         catch (IOException e){
             e.printStackTrace();
-            Toast.makeText(ViewImage.this, e.toString(), Toast.LENGTH_LONG).show();
         }
         return exif;
     }
@@ -173,5 +146,4 @@ public class ViewImage extends AppCompatActivity {
     public boolean isValid(){
         return valid;
     }
-
 }

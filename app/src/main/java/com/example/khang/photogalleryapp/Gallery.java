@@ -32,7 +32,7 @@ import android.widget.Toast;
 
 public class Gallery extends AppCompatActivity {
     TextView getDate;
-    String startD, endD, lat, longi;
+    String startD, endD, lat, longi, keys;
     GridView gv;
     ArrayList<File> list;
     private int READ_STORAGE_PERMISSION_CODE = 23;
@@ -67,11 +67,12 @@ public class Gallery extends AppCompatActivity {
         endD = getIntent().getStringExtra("ENDDATE");
         lat = getIntent().getStringExtra("LATITUDE");
         longi = getIntent().getStringExtra("LONGITUDE");
+        keys = getIntent().getStringExtra("KEYWORDS");
 
         String pathtoimage = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath() + "/Camera";
         File imageDirectory = new File(pathtoimage);
         System.out.println(imageDirectory);
-        listImgs(imageDirectory, startD, endD, lat, longi);
+        listImgs(imageDirectory, startD, endD, lat, longi, keys);
 
         //now create a new array to populate photos based on given time
         //String hello = imgList.get(position).toString();
@@ -206,7 +207,7 @@ public class Gallery extends AppCompatActivity {
     //a directory or not, if not, iterate through the folder and add each jpg file in array list
     //for us to display in gridview
 
-    public ArrayList<File> listImgs(File dir, String start, String end, String getLat, String getLong) {
+    public ArrayList<File> listImgs(File dir, String start, String end, String getLat, String getLong, String getKeys) {
 
         ArrayList<File> a = new ArrayList<File>();
 
@@ -231,12 +232,17 @@ public class Gallery extends AppCompatActivity {
             try {
                 ExifInterface exifInterface = new ExifInterface(path);
                 if (exifInterface != null) {
+                    //What I want to do now is to convert photoDate into date format
+                    //take string start and end date, convert into date format
+                    //then compare the date range, photoDate > startDate && photoDate < endDate
+                    //endDate <= photoDate >= startDate
                     photoDate = exifInterface.getAttribute(ExifInterface.TAG_GPS_DATESTAMP);
 
                     String lat = exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE);
                     String latRef = exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE_REF);
                     String lon = exifInterface.getAttribute(ExifInterface.TAG_GPS_LONGITUDE);
                     String longRef = exifInterface.getAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF);
+                    String photoDesc = exifInterface.getAttribute(ExifInterface.TAG_IMAGE_DESCRIPTION);
 
                     if ((lat != null) && (latRef != null) && (lon != null) && (longRef != null)){
                         valid = true;
@@ -269,8 +275,8 @@ public class Gallery extends AppCompatActivity {
                         6. null
                         7. null
                          */
-                    if ((start != null && end != null) || (getLat != null && getLong != null)) {
-                        if ((start.equals(photoDate) || end.equals(photoDate)) || (getLat.equals(getLatitude) && getLong.equals(getLongitude))) {
+                    if ((start != null && end != null) || (getLat != null && getLong != null) || (getKeys != null)) {
+                        if ((start.equals(photoDate) || end.equals(photoDate)) || (getLat.equals(getLatitude) && getLong.equals(getLongitude)) || photoDesc.contains(getKeys)) {
                             //add img to new imgList
                             imgList.add(img[i]);
                             //return imgList.get(position);

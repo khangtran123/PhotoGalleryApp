@@ -26,5 +26,27 @@ import static android.support.test.espresso.matcher.ViewMatchers.withContentDesc
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
+@RunWith(AndroidJUnit4.class)
 public class EspressoTesting_SearchPhotoByCaption {
+    @Rule
+    public ActivityTestRule<MainMenu> mActivityRule =
+            new ActivityTestRule<>(MainMenu.class);
+
+    /*@Test
+    public void gettoAdvancedPage(){
+        onView(withId(R.id.btnSearch)).perform(click());
+    } */
+
+    @Test
+    public void ensureButtonisClicked() {
+        /*int year = 2017;
+        int month = 07;
+        int day = 01;
+        onView(withId(R.id.btnSearch)).perform(click());
+        onView(withId(R.id.txtStartDate)).perform(click()); */
+        onView(withId(R.id.btnSearch)).perform(click());
+        onView(withId(R.id.txtKeyword))
+                .perform(typeText("girl"), closeSoftKeyboard());
+        onView(withId(R.id.btnSearch)).perform(click());
+    }
 }
