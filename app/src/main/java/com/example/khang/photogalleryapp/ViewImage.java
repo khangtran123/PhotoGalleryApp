@@ -60,30 +60,11 @@ public class ViewImage extends AppCompatActivity {
         btnEditTag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //enterDesc = (EditText) findViewById(R.id.txtDesc);
-                //enterDesc.setVisibility(View.VISIBLE);
-                /*
-                String getDesc = enterDesc.getText().toString();
-
-                try{
-                    ExifInterface exifInterface = new ExifInterface(f);
-                    exifInterface.setAttribute(ExifInterface.TAG_IMAGE_DESCRIPTION, getDesc);
-                    //now include a save button. once user clicks save, page refresh with new info
-                    exifInterface.saveAttributes();
-                }
-                catch (IOException e){
-                    e.printStackTrace();
-                    Toast.makeText(ViewImage.this, e.toString(), Toast.LENGTH_LONG).show();
-                } */
                 Intent intent = new Intent(ViewImage.this, EditExif.class);
                 intent.putExtra("IMGPATH", f);
                 startActivity(intent);
             }
          });
-        //imageFile is the absolute path to the image in String format
-        /*What we want is to create a session variable (Through intents) that sends the chosen image directory over
-           we grab that image path and pass that in as the String argument. */
     }
 
     String ReadExif(String imgFile){

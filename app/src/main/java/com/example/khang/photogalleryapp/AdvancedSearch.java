@@ -141,16 +141,14 @@ public class AdvancedSearch extends AppCompatActivity {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(AdvancedSearch.this, Gallery.class);
+                String getStartD = startDate.getText().toString();
+                String getEndD = endDate.getText().toString();
+                String getLat = enterLat.getText().toString();
+                String getLong = enterLong.getText().toString();
+                String getKeys = enterKeyword.getText().toString();
 
                 try {
-                    Intent intent = new Intent(AdvancedSearch.this, Gallery.class);
-                    String getStartD = startDate.getText().toString();
-                    String getEndD = endDate.getText().toString();
-                    String getLat = enterLat.getText().toString();
-                    String getLong = enterLong.getText().toString();
-                    String getKeys = enterKeyword.getText().toString();
-
-                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy/mm/dd");
 
                     /*
                     Create 2 Conditions before moving to gallery page
@@ -167,8 +165,9 @@ public class AdvancedSearch extends AppCompatActivity {
                         d) 180 <= Latititude >= -180
                     3. Keywords
                         a) max length: 5 keywords
-                    */
+
                     if(getLat != null && getLong != null || (getStartD != null && getEndD != null)) {
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
                         Double getLatNum = Double.parseDouble(getLat);
                         Double getLongNum = Double.parseDouble(getLong);
                         Date compDateS = formatter.parse(getStartD);
@@ -246,7 +245,14 @@ public class AdvancedSearch extends AppCompatActivity {
                                 });
                             }
                         }
-                    }
+                    }*/
+                    intent.putExtra("STARTDATE", getStartD);
+                    intent.putExtra("ENDDATE", getEndD);
+                    intent.putExtra("LONGITUDE", getLong);
+                    intent.putExtra("LATITUDE", getLat);
+                    intent.putExtra("KEYWORDS", getKeys);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
                 }
                 catch (Exception e){
                     System.out.println("Exception: " + e);

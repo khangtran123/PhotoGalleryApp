@@ -55,14 +55,14 @@
         android:id="@+id/txtLongLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Longitude:"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="@+id/txtLat"
-        app:layout_constraintRight_toRightOf="@+id/txtKeyLabel"
-        tools:layout_constraintLeft_creator="1"
         android:layout_marginBottom="11dp"
-        app:layout_constraintLeft_toLeftOf="@+id/txtStart" />
+        android:text="Latitude:"
+        app:layout_constraintBottom_toBottomOf="@+id/txtLat"
+        app:layout_constraintLeft_toLeftOf="@+id/txtStart"
+        app:layout_constraintRight_toRightOf="@+id/txtKeyLabel"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1" />
 
     <EditText
         android:id="@+id/txtLong"
@@ -180,10 +180,10 @@
         android:id="@+id/txtLatLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Latitude:"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintRight_toRightOf="@+id/txtLongLabel"
+        android:text="Longitude:"
         app:layout_constraintBaseline_toBaselineOf="@+id/txtLong"
-        tools:layout_constraintBaseline_creator="1" />
+        app:layout_constraintRight_toRightOf="@+id/txtLongLabel"
+        tools:layout_constraintBaseline_creator="1"
+        tools:layout_constraintRight_creator="1" />
 
 </android.support.constraint.ConstraintLayout>

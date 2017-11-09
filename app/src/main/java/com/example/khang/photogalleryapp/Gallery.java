@@ -73,7 +73,6 @@ public class Gallery extends AppCompatActivity {
         File imageDirectory = new File(pathtoimage);
         System.out.println(imageDirectory);
         listImgs(imageDirectory, startD, endD, lat, longi, keys);
-
         //now create a new array to populate photos based on given time
         //String hello = imgList.get(position).toString();
 
@@ -274,16 +273,61 @@ public class Gallery extends AppCompatActivity {
                         5. 2015:11:29 Lat --> 49.38905   Long --> -123.206635
                         6. null
                         7. null
-                         */
+                        String lat = exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE);
+                    String latRef = exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE_REF);
+                    String lon = exifInterface.getAttribute(ExifInterface.TAG_GPS_LONGITUDE);
+                    String longRef = exifInterface.getAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF);
+                    String photoDesc = exifInterface.getAttribute(ExifInterface.TAG_IMAGE_DESCRIPTION);
+                        */
+
                     if ((start != null && end != null) || (getLat != null && getLong != null) || (getKeys != null)) {
-                        if ((start.equals(photoDate) || end.equals(photoDate)) || (getLat.equals(getLatitude) && getLong.equals(getLongitude)) || photoDesc.contains(getKeys)) {
-                            //add img to new imgList
-                            imgList.add(img[i]);
-                            //return imgList.get(position);
+                        /*
+                        System.out.println("Given Longitude: " + getLat);
+                        System.out.println("Given Latitude: " + getLong);
+                        System.out.println("Photo Long: " + getLongitude);
+                        System.out.println("Photo Lat: " + getLatitude);
+                        System.out.println("Given Keyword: " + getKeys);
+                        System.out.println("Photo Description: " + photoDesc); */
+                        if (photoDesc != null) {
+                            if ((start.equals(photoDate) || end.equals(photoDate)) || (getLat.equals(getLatitude) && getLong.equals(getLongitude)) || (photoDesc.toLowerCase().indexOf(getKeys.toLowerCase()) != -1)) {
+                                //add img to new imgList
+                                imgList.add(img[i]);
+                                //return imgList.get(position);
+                            } else {
+                                System.out.println("Nothing matches the given search criteria!");
+                            }
+                        } else{
+                            System.out.println("There's insufficent information to be compared (On phototag's end)");
                         }
                     } else{
                         imgList.add(img[i]);
                     }
+
+                    /*
+                    if(getKeys != null) {
+                        if(photoDesc != null) {
+                            if ((start.equals(photoDate) || end.equals(photoDate)) || (getLat.equals(getLatitude) && getLong.equals(getLongitude)) || (photoDesc.toLowerCase().indexOf(getKeys.toLowerCase()) != -1)) {
+                                /*add img to new imgList
+                                System.out.println("Keywords Match!");
+                                System.out.println("Given Longitude: " + getLat);
+                                System.out.println("Given Latitude: " + getLong);
+                                System.out.println("Photo Long: " + getLongitude);
+                                System.out.println("Photo Lat: " + getLatitude);
+                                System.out.println("Given Keyword: " + getKeys);
+                                System.out.println("Photo Description: " + photoDesc);
+                                System.out.println("Given Keyword: " + getKeys);
+                                System.out.println("Photo Description: " + photoDesc);
+                                System.out.println("Keywords do match!");
+                                imgList.add(img[i]);
+                            } else {
+                                System.out.println("Keywords don't match!");
+                            }
+                        } else{
+                            System.out.println("Photo Description is null!");
+                        }
+                    } else{
+                        System.out.println("Keyword is null");
+                    } */
 
                     //This section is trying to convert the exif date into a proper date format
                     //exif Date format -> yyyy:mm:dd
